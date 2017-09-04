@@ -4,8 +4,14 @@ set -e
 
 orig_dir=$(pwd)
 
-sudo apt-get update -qq
-sudo apt-get install -qq python3-pip zlib1g-dev libjpeg-dev
+if [[ "$TRAVIS_OS_NAME" == "linux" ]]
+then
+  sudo apt-get update -qq
+  sudo apt-get install -qq python3-pip zlib1g-dev libjpeg-dev
+else
+  brew update
+  brew install python3
+fi 
 pip3 install meson
 pip3 install pillow
 
